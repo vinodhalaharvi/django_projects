@@ -1,0 +1,35 @@
+{% extends "base_site.html" %}
+{% block content %}
+<body>
+        <div class="list_books">
+                {% if books %}
+                <table>
+                        <thead>
+                                <th><div><input type="checkbox" /></div></th>
+                                <th>Author</th>
+                                <th>Title</th>
+                        </thead>
+                        {% for book in books %}
+                                <tr>
+                                        <td><input type="checkbox" id="{{ book.id }}" /></td>
+                                        <td>{{ book.author }}</td>
+                                        <td>{{ book.title }}</td>
+					<td><a href="/books/update/{{ book.id }}">Update</a></td>
+					<td><a href="/books/detail/{{ book.id }}">Detail</a></td>
+                                        <td>
+                                        	<form action="/books/delete/{{ book.id }}/" method="post"> {% csrf_token %}
+                                                        <input type="submit" value="delete" />
+                                                </form>
+                                        </td>
+                                </tr>
+                        {%endfor%}
+                        <tr>
+                                <td><a href="/books/new/"><input type="button" value="Create New Book" /></a></td>
+                        	<td><input type="button" name="delete" value="delete selected" /></td>
+                        </tr>
+                </table>
+                {% endif %}
+        </div>
+</body>
+{% endblock %}
+

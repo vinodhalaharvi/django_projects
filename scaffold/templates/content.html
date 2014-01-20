@@ -1,0 +1,16 @@
+{% extends "base_site.html" %}
+{% block content %}
+<body>
+	<div align="center">
+	        <strong>YOUR CONTENT GOES HERE!! </strong>
+	</div>
+
+	<div align="center">
+		<form action="/logout/" method="post"> {% csrf_token %}
+			<div>
+				<input type="submit" name="Logout" value="Logout" />
+			</div>
+		</form>
+	</div>
+</body>
+{% endblock %}

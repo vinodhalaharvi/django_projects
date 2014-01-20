@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>AMAZING APP!</title>
+    <link rel="stylesheet" href="/static/resources/base.css"
+		type="text/css" media="screen" charset="utf-8">
+</head>
+<body>
+	<div align="center">
+	        <strong>YOUR CONTENT GOES HERE!! </strong>
+	</div>
+
+	<div align="center">
+		<form action="/logout/" method="post"> {% csrf_token %}
+			<div>
+				<input type="submit" name="Logout" value="Logout" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>

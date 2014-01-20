@@ -1,0 +1,14 @@
+{% extends "base_site.html" %}
+{% block content %}
+<body>
+        <div>
+                Author : {{ book.author }}
+        </div>
+        <div>
+                Title: {{ book.title }}
+        </div>
+        <div>
+                <tr><a href="/books/list/"><input type="button" value="Back" /></a></tr>
+        </div>
+</body>
+{% endblock %}

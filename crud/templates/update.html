@@ -1,0 +1,16 @@
+{% extends "base_site.html" %}
+{% block content %}
+<body>
+        <form action="/books/update/{{ book.id }}/" method="post"> {% csrf_token %}
+                <div>
+                        <label for="id_author">Author</label>
+                        <input type="text" name="author" id="id_author" value="{{ book.author }}"/>
+                </div>
+                <div>
+                        <label for="id_title">Title</label>
+                        <input type="text" id="id_title" name="title" value = "{{ book.title }}"/>
+                </div>
+                <input type="submit" value="Update" />
+        </form>
+</body>
+{% endblock %}
