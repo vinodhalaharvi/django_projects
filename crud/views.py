@@ -11,7 +11,7 @@ from crud.forms import BookForm
 @csrf_exempt
 def login_view(request):
 	if request.method == "GET":
-		return render_to_response("login.html")
+		return render_to_response("crud/templates/login.html")
 	else:
 		username = request.POST['username']
 		password = request.POST['password']
@@ -19,7 +19,7 @@ def login_view(request):
 		if user is not None:
 			if user.is_active:
 				login(request, user)
-				return redirect("list")
+				return redirect("/crud/books/list")
 			else:
 				return HttpResponse(
 					"<strong>YOUR ACCOUNT IS DISABLED!!</strong>", 
@@ -31,7 +31,7 @@ def login_view(request):
 @csrf_exempt
 def logout_view(request):
 	logout(request)
-	return render_to_response("login.html")
+	return render_to_response("crud/templates/login.html")
 
 
 @login_required
@@ -42,7 +42,7 @@ def content(request):
 			{ 'id':  101, 'attr1': 'attr1', 'attr2': 'attr2', }, 
 			{ 'id':  102, 'attr1': 'attr1', 'attr2': 'attr2', }, 
 		)
-	return render_to_response("crud.html", {"objects_list": object_list})
+	return render_to_response("crud/templates/crud.html", {"objects_list": object_list})
 
 
 def contact(request):
@@ -64,7 +64,7 @@ def contact(request):
     else:
         form = ContactForm() # An unbound form
 
-    return render(request, 'contact.html', {
+    return render(request, 'crud/templates/contact.html', {
         'form': form,
     })
 
@@ -74,10 +74,10 @@ def list(request, id=None):
 	"""docstring for list"""
 	if not id:
 		books = Book.objects.all()
-		return render_to_response("list.html", {"books":books})
+		return render_to_response("crud/templates/list.html", {"books":books})
 	else:
 		book = Book.objects.get(id = id)
-		return render_to_response("list.html", {"books":[book]})
+		return render_to_response("crud/templates/list.html", {"books":[book]})
 
 @login_required
 @csrf_exempt
@@ -85,7 +85,7 @@ def update(request, id):
 	"""docstring for update"""
 	if request.method == 'GET':
 		book = Book.objects.get(id=id)
-		return render_to_response("update.html", {"book": book} )
+		return render_to_response("crud/templates/update.html", {"book": book} )
 	else:
 	    if request.method == 'POST': # If the form has been submitted...
 		form = BookForm(request.POST)
@@ -94,7 +94,7 @@ def update(request, id):
 			book.title = request.POST["title"]
 			book.author = request.POST["author"]
 			book.save()
-			return redirect("list")
+			return redirect("/crud/list")
 
 
 @login_required
@@ -103,14 +103,14 @@ def new(request):
 	"""docstring for new"""
 	if request.method == "GET":
 		form = BookForm(instance=Book())
-		return render_to_response("new.html", {"form":form})
+		return render_to_response("crud/templates/new.html", {"form":form})
 	else:
 		form = BookForm(request.POST)
 		if form.is_valid(): # All validation rules pass
 			form.save()
-			return redirect("list")
+			return redirect("/crud/books/list")
 		else:
-			return render_to_response("new.html", {"form":form, 
+			return render_to_response("crud/templates/new.html", {"form":form, 
 					"error": "INVALID FORM REQUEST"})
 
 def deleteSelected(request, ids):
@@ -119,16 +119,16 @@ def deleteSelected(request, ids):
 		for id in ids:
 			book = Book.objects.get(id = id )
 			book.delete()
-		return redirect("list")
+		return redirect("/crud/books/list")
 	else:
-		return redirect("list")
+		return redirect("/crud/books/list")
 
 
 @login_required
 def detail(request, id):
 	"""docstring for detail"""
 	book = Book.objects.get(pk=id)
-	return render_to_response("detail.html", {"book": book})
+	return render_to_response("crud/templates/detail.html", {"book": book})
 
 
 @login_required
@@ -138,6 +138,6 @@ def delete(request, id):
 	if request.method == "POST":
 		book = Book.objects.get(id = id )
 		book.delete()
-		return redirect("list")
+		return redirect("/crud/books/list")
 	else:
-		return redirect("list")
+		return redirect("/crud/books/list")

@@ -1,7 +1,7 @@
 {% extends "base_site.html" %}
 {% block content %}
 <body>
-        <form action="/books/update/{{ book.id }}/" method="post"> {% csrf_token %}
+        <form action="crud/books/update/{{ book.id }}/" method="post"> {% csrf_token %}
                 <div>
                         <label for="id_author">Author</label>
                         <input type="text" name="author" id="id_author" value="{{ book.author }}"/>

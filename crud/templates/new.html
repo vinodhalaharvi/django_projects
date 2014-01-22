@@ -1,7 +1,7 @@
 {% extends "base_site.html" %}
 {% block content %}
 <body>
-        <form action="/books/new/" method="post"> {% csrf_token %}
+        <form action="/crud/books/new/" method="post"> {% csrf_token %}
                 <div>
                         {{ form.as_p }}
                 </div>

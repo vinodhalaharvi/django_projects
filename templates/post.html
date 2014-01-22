@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+        <h2>Post</h2>
+        <div class="post">
+                <p> {{ post.post }} </p>
+        </div>
+        <h2>Comments</h2>
+        <div class="comments">
+                <ul>
+                        {% for comment in post.comment_set.all %}
+                                <li>{{ comment.comment }} </li>
+                        {% endfor %}
+                </ul>
+        </div>
+        
+        <div class="commentform">
+                <form action="" method="post"> {% csrf_token %}
+                        <label for="comment"></label>
+                        <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+                        <div class="submit">
+                                <input type="submit" />
+                                <span><a href="/post/">Back to posts</a></span>
+                        </div>
+                </form>
+        </div>
+</body>
+</html>
