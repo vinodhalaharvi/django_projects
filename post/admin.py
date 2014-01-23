@@ -9,6 +9,7 @@ class CommentInline(admin.StackedInline):
 class PostAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': ['post']}),
+        ('Rating',           {'fields': ['rating']}),
         ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
     inlines = [CommentInline]

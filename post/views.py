@@ -19,8 +19,9 @@ from post.models import Post, Comment
 def post(request, post_id):
 	if request.method == "GET":
 		p = get_object_or_404(Post, pk=post_id)
-		return render_to_response('post/templates/post.html', {'post': p},
-			    context_instance=RequestContext(request))
+		return render_to_response('post/templates/post.html', {'post': p,
+			'user': request.user},
+		        context_instance=RequestContext(request))
 	else:
 		print request.POST
 		comment = request.POST.get("comment")	
@@ -28,10 +29,13 @@ def post(request, post_id):
 			c = Comment()
 			c.post_id = post_id
 			c.comment =  comment
+			c.username = request.user.username
+			c.rating = 0
 			c.save()
 			p = get_object_or_404(Post, pk=post_id)
-			return render_to_response('post/templates/post.html', {'post': p},
-				    context_instance=RequestContext(request))
+			return render_to_response('post/templates/post.html', {'post': p, 
+				'user': request.user},
+				 context_instance=RequestContext(request))
 		else:
 			return HttpResponse("<strong>you must provide valid comment</strong>")
 

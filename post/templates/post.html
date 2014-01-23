@@ -5,15 +5,22 @@
 	<title></title>
 </head>
 <body>
+	<div>
+		{% if user.is_authenticated %}
+		    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+		    <p> You have last logged in at: 
+			<strong>{{ user.last_login }}</p></strong>
+		{% endif %}	
+	</div>
         <h2>Post</h2>
         <div class="post">
-                <p> {{ post.post }} </p>
+		<p><strong> User {{ user.username }} posted <br></strong>{{ post.post }} </p>
         </div>
         <h2>Comments</h2>
         <div class="comments">
                 <ul>
-                        {% for comment in post.comment_set.all %}
-                                <li>{{ comment.comment }} </li>
+			{% for comment in post.comment_set.all %}
+			<li><strong>{{ comment.username }}</strong> <span>{{ comment.comment }}</span></li>
                         {% endfor %}
                 </ul>
         </div>
